@@ -13,12 +13,12 @@ const octokit = github.getOctokit(token);
 let platforms = {};
 let missingPlatforms = [];
 
-console.log('--- Debug Repo Context ---');
-console.log('github.context.repo:', github.context.repo);
-console.log('github.context.payload.repository.name:', github.context.payload?.repository?.name);
-console.log('github.context.ref:', github.context.ref);
-console.log('platformFiles input:', platformFiles);
-console.log('---------------------------');
+core.startGroup('🔍 Debug Context');
+core.info(`Working dir: ${process.cwd()}`);
+core.info(`Repo: ${github.context.repo.owner}/${github.context.repo.repo}`);
+core.info(`Ref: ${github.context.ref}`);
+core.info(`Platform files input: ${core.getInput('platform-files', { required: true })}`);
+core.endGroup();
 
 
 async function imageLabelExists(hexhash) {
