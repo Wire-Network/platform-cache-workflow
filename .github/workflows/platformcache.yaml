@@ -37,6 +37,15 @@ jobs:
           repository: Wire-Network/platform-cache-workflow
           ref: v1
           path: platformdiscovery
+
+      - name: Debug contents of platform-files
+        run: |
+          echo "Listing contents of ${{ inputs.platform-files }}:"
+          ls -laR ${{ inputs.platform-files }} || echo " Directory not found"
+          echo
+          echo "Current working directory: $(pwd)"
+          echo "Repo context: ${{ github.repository }} @ ${{ github.ref }}"
+
       - name: Discover Platforms
         id: discover
         uses: ./platformdiscovery/.github/actions/discover-platforms
