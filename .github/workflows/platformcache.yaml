@@ -44,6 +44,11 @@ jobs:
           platform-files: ${{inputs.platform-files}}
           password: ${{github.token}}
           package-name: ${{inputs.package-name}}
+      - name: Debug discovered outputs
+        run: |
+          echo "missing-platforms: ${{steps.discover.outputs.missing-platforms}}"
+          echo "platform-list: ${{steps.discover.outputs.platform-list}}"
+          echo "platforms: ${{steps.discover.outputs.platforms}}"
 
   build-platforms:
     name: Build Platforms
