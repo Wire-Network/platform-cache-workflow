@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
         ## TODO: how can calling workflow's repo & ref be forwarded through?
         with:
-          repository: AntelopeIO/platform-cache-workflow
+          repository: Wire-Network/platform-cache-workflow
           ref: v1
           path: platformdiscovery
       - name: Discover Platforms
