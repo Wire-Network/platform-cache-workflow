@@ -13,6 +13,14 @@ const octokit = github.getOctokit(token);
 let platforms = {};
 let missingPlatforms = [];
 
+console.log('--- Debug Repo Context ---');
+console.log('github.context.repo:', github.context.repo);
+console.log('github.context.payload.repository.name:', github.context.payload?.repository?.name);
+console.log('github.context.ref:', github.context.ref);
+console.log('platformFiles input:', platformFiles);
+console.log('---------------------------');
+
+
 async function imageLabelExists(hexhash) {
    const resp = await axios.head(`https://ghcr.io/v2/${github.context.repo.owner.toLowerCase()}/${packageName}/manifests/${hexhash}`, {validateStatus:null, headers:{"Authorization":`Bearer ${Buffer.from(token).toString('base64')}`}});
    switch(resp.status) {
