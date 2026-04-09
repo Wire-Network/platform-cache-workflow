@@ -35,14 +35,14 @@ jobs:
       base-exists: ${{steps.check-base.outputs.exists}}
       base-image: ${{steps.check-base.outputs.image}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: Wire-Network/platform-cache-workflow
           ref: v1
           path: platformdiscovery
 
       - name: Checkout calling repo for base.Dockerfile check
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: calling-repo
 
@@ -97,17 +97,17 @@ jobs:
     outputs:
       base-image: ${{needs.d.outputs.base-image}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Login to Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{github.repository_owner}}
           password: ${{github.token}}
 
       - name: Build and push base image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
@@ -131,11 +131,11 @@ jobs:
       packages: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Login to Container Registry
         if: matrix.platform != 'none'
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{github.repository_owner}}
@@ -143,7 +143,7 @@ jobs:
 
       - name: Build and push variant
         if: matrix.platform != 'none'
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
