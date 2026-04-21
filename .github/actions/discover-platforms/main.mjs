@@ -13,6 +13,14 @@ const octokit = github.getOctokit(token);
 let platforms = {};
 let missingPlatforms = [];
 
+core.startGroup('🔍 Debug Context');
+core.info(`Working dir: ${process.cwd()}`);
+core.info(`Repo: ${github.context.repo.owner}/${github.context.repo.repo}`);
+core.info(`Ref: ${github.context.ref}`);
+core.info(`Platform files input: ${core.getInput('platform-files', { required: true })}`);
+core.endGroup();
+
+
 async function imageLabelExists(hexhash) {
    const resp = await axios.head(`https://ghcr.io/v2/${github.context.repo.owner.toLowerCase()}/${packageName}/manifests/${hexhash}`, {validateStatus:null, headers:{"Authorization":`Bearer ${Buffer.from(token).toString('base64')}`}});
    switch(resp.status) {
